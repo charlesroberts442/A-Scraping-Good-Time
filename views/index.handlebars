@@ -1,0 +1,11 @@
+<ul>
+   {{#each dbArticle }}
+	<li>
+	
+	   <p class = "title_p" data-id= {{this._id}} >{{this.title}}</p>
+	   <a class = "article_link" target = "_blank" href = {{this.link}}>{{this.link}}</a>
+	   
+	</li>
+	<br>
+   {{/each}}
+</ul>
