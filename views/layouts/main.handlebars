@@ -57,38 +57,54 @@
 
 <div class = "screen1" id="screen1">
 
-    <div id="buttons">
-      <button class="scraper_btn" id="btn1">Button One</button>
-      <button class="scraper_btn" id="btn2">Button Two</button>
+    <p class = "text-center">The two tables on this screen contain the latest scraped articles and the saved articles.</p>
+
+    <p class = "text-center">Clicking on the title of an article will cause the article to move from scraped to saved or saved to scraped.
+    
+    <div class="article_display_top1" id="screen1_not_saved">
+        <h2 class = "text-center">Scraped Articles</h2>
+        <button class = "scraper_btn">Scrape Again</button>
+        <div class="article_display1" id="screen1_not_saved">
+        {{> fuckit}}   
+    </div>
+    </div>
+
+    <div class="article_display_top1" id="screen1_saved">
+        <h2 class = "text-center">Saved Articles</h2>
+        <button class = "scraper_btn">Delete Saved Articles</button>
+        <div class="article_display1" id="screen1_not_saved">
+        {{{ body }}}  
+    </div>
     </div>
 
     
-    <div class="article_display">
-    {{> fuckit}}
 </div>
 
-<div class="article_display">
-    {{> fuckit}}
-</div>
 
-</div>
+
+
 
 
 <!-- --------------- End of Screen 1, Beginning of Screen 2 ------------- -->
+
+
+
 
 
 <div class = "screen2" id="screen2">
 
 <br>
 <div id="buttons">
-      <button class="scraper_btn" id="btn1">Button One</button>
-      <button class="scraper_btn" id="btn2">Button Two</button>
+      <button class="scraper_btn" id="btn5">Button Five</button>
+      <button class="scraper_btn" id="btn6">Button Six</button>
     </div>
 
     <div id="notes"></div>
 
     <div class="article_display">
         {{{body}}}
+        
+        
     </div>
 
     <div id="articles"></div>

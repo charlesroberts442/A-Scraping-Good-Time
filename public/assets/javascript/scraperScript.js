@@ -1,47 +1,87 @@
 
 // Whenever someone clicks a p tag
-$(document).on("click", "p", function() {
+$(document).on("click", "p", function(event) {
   // Empty the notes from the note section
   $("#notes").empty();
   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
+  var thisClassList = $(this).attr('class');
+  console.log(thisClassList);
 
   console.log("Click!");
   console.log(thisId);
 
+  // Trying to find the parent
+  console.log(event);
+  console.log(arguments);
+  var id = $(this).parent().parent().parent().attr('id');
+  console.log("id is " + id);
+  console.log(id);
 
-  // Now make an ajax call for the Article
-  $.ajax({
-    method: "GET",
-    url: "/articles/" + thisId
-  })
-    // With that done, add the note information to the page
-    .then(function(data) {
-      console.log(data);
-      // The title of the article
-      $("#notes").append("<h2>" + data.title + "</h2>");
-      // An input to enter a new title
-      $("#notes").append("<input id='titleinput' name='title' >");
-      // A textarea to add a new note body
-      $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-      // A button to submit a new note, with the id of the article saved to it
-      $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+  switch(id)
+  {
 
-      // If there's a note in the article
-      if (data.note) {
-        // Place the title of the note in the title input
-        $("#titleinput").val(data.note.title);
-        // Place the body of the note in the body textarea
-        $("#bodyinput").val(data.note.body);
-      }
-    });
+    case "screen1_saved":
+    {
+      // Request that the backend toggle the article's
+      // saved status
+      console.log("Put code here to toggle saved status");
+      $.get("/toggle_saved", {article_id: thisId, newValue:false });
+      break;
+    }
+
+    case "screen1_not_saved":
+    {
+      // Request that the backend toggle the article's
+      // saved status
+      console.log("Put code here to toggle saved status");
+      $.get("/toggle_saved", {article_id: thisId, newValue:true});
+      break;
+
+    }
+
+    default:
+    {
+  
+
+      // Now make an ajax call for the Article
+      $.ajax({
+        method: "GET",
+        url: "/articles/" + thisId
+      })
+        // With that done, add the note information to the page
+        .then(function(data) {
+          console.log(data);
+          // The title of the article
+          $("#notes").append("<h2>" + data.title + "</h2>");
+          // An input to enter a new title
+          $("#notes").append("<input id='titleinput' name='title' >");
+          // A textarea to add a new note body
+          $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+          // A button to submit a new note, with the id of the article saved to it
+          $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+
+          // If there's a note in the article
+          if (data.note) {
+            // Place the title of the note in the title input
+            $("#titleinput").val(data.note.title);
+            // Place the body of the note in the body textarea
+            $("#bodyinput").val(data.note.body);
+          }
+        });
+
+      } // End of default
+
+  } // End of switch
 
 });
 
 // When you click the savenote button
-$(document).on("click", "#savenote", function() {
+$(document).on("click", "#savenote", function(event) {
   // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
+
+  
 
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
